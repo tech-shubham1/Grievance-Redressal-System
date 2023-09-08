@@ -1,0 +1,8 @@
+.complain-desc {
+    display: none;
+}
+.complain-class:hover{
+    /* background-color: #0D6EFD!important;
+    color: white!important;  */
+    transition: all 0.2s ease;
+}

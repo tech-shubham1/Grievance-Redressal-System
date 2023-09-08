@@ -1,0 +1,64 @@
+{% extends 'complainapp/basic.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/complainapp/respondcomplain.css' %}">
+<style>
+    .btn-like{
+        border-radius: 15px;
+        padding-block: 3px;
+        padding-inline: 9px; 
+        transition: all 0.2s ease;
+        border: 0px;
+        line-height: initial; 
+        background-color: #0D6EFD; 
+        color: white; 
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        min-width: 70px; 
+        display:block;
+        height: 29px; 
+    }
+    .btn-like:hover{
+        cursor: pointer;
+        box-shadow:0px 15px 20px rgba(197, 190, 250, 0.4);
+        transform: translateY(-2px);
+    }
+    .liking{
+        color: white;
+    }
+    .like-count{
+        margin-left:5px; 
+    }
+    .cwrapper{
+        display: flex;
+        align-items: center;
+    }
+</style>
+{% endblock style %}
+{% block body %}
+<div class="content-enclosure">
+    <h2 class='text-center'>All complains</h2>
+    <div class="complains1" style="min-height:200px">
+        <div class="list-group complain-list" style="border-radius:0px 0px 5px 5px">
+            {% for complain in allcomplain %}
+            <div class="list-group-item complain-class" aria-current="true">
+                <h6 class="complain-subject">{{ complain.heading }}</h6>
+                <div class="complain-desc">
+                    <p>{{ complain.description|safe }}</p>
+                    <p>Response date: {{ complain.response_date }}</p>
+                </div>
+                <form action="{% url 'postlike' %}" method="POST" style="margin-left:auto;display:flex;"> {% csrf_token %}
+                    <div class="cwrapper">
+                        <input type ='hidden' name='cid' value="{{ complain.id }}">
+                        {% if user not in complain.likes.all %}
+                        <button type="submit" class="btn-like like m-2"><i class="far fa-thumbs-up liking"></i> <span class="like-count">{{ complain.likes.all.count }}</span> </button>
+                        {% else %}
+                        <button type="submit" class="btn-like unlike m-2"><i class="fas fa-thumbs-up liking"></i> <span class="like-count">{{ complain.likes.all.count }}</span> </button>
+                        {% endif %}
+                    </div>        
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,87 @@
+{% extends 'complainapp/basic.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/complainapp/index.css' %}">
+{% endblock style %}
+{% block body %}
+{% if user.is_authenticated %}
+<div class="content-enclosure">
+    <h2 class='text-center'> Complains made by you </h2>
+    <div class="complains2" style="min-height:200px">
+        <h2 class="bg-danger text-white rounded-top rounded-top px-3 py-2">Complains not answered</h2>
+        <div class="list-group complain-list" style="border-radius:0px 0px 5px 5px">
+            {% for complain in unanswered_complains %}
+            <div class="list-group-item list-group-item-action complain-class" aria-current="true">
+                <h6 class="complain-subject m-2">{{ complain.heading }}
+                    <small style="font-size: 12px">{{complain.registered_to}}</small>
+                </h6>
+                <div class="complain-desc m-2">
+                    <p>{{ complain.description|safe }}</p>
+                    <p class="fst-italic"> Deadline for response: {{ complain.response_date }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>All complains have been answered.</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="complains1" style="min-height:200px">
+        <h2 class="bg-success text-white rounded-top px-3 py-2">Complains answered</h2>
+        <div class="list-group complain-list" style="border-radius:0px 0px 5px 5px">
+            {% for complain in answered_complains %}
+            <div class="list-group-item list-group-item-action complain-class" aria-current="true">
+                <div class="complain-subject m-2">{{ complain.heading }}
+                    <small style="font-size: 12px">{{complain.registered_to}}</small>
+                </div>
+                <div class="complain-desc m-2">
+                    <p>{{ complain.description|safe }}</p>
+                    <div class="m-2">
+                        <form method="post" class="reopen-complain-form" action="{% url 'reopenComplain'%}">
+                            {% csrf_token %}
+                            <input type="hidden" name="complain_id" value="{{complain.id}}">
+                            {{ reopencomplainform.as_p }}
+                            <button type="submit" class="btn btn-warning">Reopen Complain</button>
+                        </form>
+                        <form method="post" class="escalate-complain-form" action="{% url 'escalateComplain' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="complain_id" value="{{complain.id}}">
+                            {{ escalatecomplainform.as_p }}
+                            <button type="submit" class="btn btn-danger">Escalate Complain</button>
+                        </form>
+                        <button class="btn btn-warning reopen-complain my-2">Reopen Complain</button>
+                        <button class="btn btn-danger escalate-complain my-2">Escalate Complain</button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No complains have been answered yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% block script %}
+    <script>
+        $(document).ready(function() {
+            $('.reopen-complain-form, .escalate-complain-form').hide();
+            $('.reopen-complain').click(function() {
+                $(this).hide();
+                $(this).parent().children('.escalate-complain').show()
+                $(this).parent().children('.escalate-complain-form').hide()
+                $(this).parent().children('.reopen-complain-form').show();
+            });
+          
+            $('.escalate-complain').click(function() {
+                $(this).hide();
+                $(this).parent().children('.reopen-complain').show()
+                $(this).parent().children('.reopen-complain-form').hide()
+                $(this).parent().children('.escalate-complain-form').show();
+            });
+        });
+          
+    </script>
+    {% endblock script %}
+</div>
+{% endif %}
+{% endblock body %}

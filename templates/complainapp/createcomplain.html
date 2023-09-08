@@ -1,0 +1,28 @@
+{% extends 'complainapp/basic.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/complainapp/index.css' %}">
+<style>
+    .create-complain-form{
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        {% comment %} box shadow should be downwards side {% endcomment %}
+        box-shadow: 0px 4px 20px #ccc;
+        padding: 10px;
+    }
+</style>
+{% endblock style %}
+{% block title %}
+<title>Create Complain</title>
+{% endblock title %}
+{% block body %}
+<h2 class="text-center">Create Complain</h2>
+{% if user.is_authenticated %}
+    {% comment %} create a new complain {% endcomment %}
+    <form class="container-sm p-5" class="create-complain-form" action="{% url 'createComplain' %}" method="post"> {% csrf_token %}
+        {{complainform.as_p}}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endif %}
+{% endblock body %}

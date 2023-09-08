@@ -1,0 +1,127 @@
+.body-content {
+  background-color: #fff;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.navbar-custom {
+  background-color: rgb(93, 93, 228);
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: dark;
+}
+
+.complains1 {
+  background-color: #fff;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  border: 1px solid #c8c6c6;
+}
+
+.complains2 {
+  background-color: #fff;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  border: 1px solid #c8c6c6;
+}
+
+.footer {
+  margin: 0;
+  padding: 40px 0;
+  background-color: #101010;
+  color: #ffffff;
+  position: absolute;
+  left:0;
+  right: 0;
+  width: 100%;
+}
+
+.footer h3 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.footer p {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #f2f2f2;
+}
+
+.footer ul.contact li {
+  margin-bottom: 10px;
+}
+
+.footer ul.contact li i {
+  margin-right: 10px;
+  color: #5a5a5a;
+  font-size: 18px;
+}
+
+.footer ul.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer ul.links li {
+  margin-bottom: 10px;
+}
+
+.footer ul.links li a {
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.footer ul.links li a:hover {
+  color: #f2f2f2;
+}
+
+@media (max-width: 767px) {
+  .footer h3 {
+    margin-top: 30px;
+  }
+}
+
+blockquote {
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 16px;
+  line-height: 1.5;
+  border-left: 3px solid #ddd;
+  background-color: #bac3ff1a;
+
+}
+
+blockquote blockquote {
+  margin: 1rem 1rem 0rem 1rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  border-color: #bbb;
+}

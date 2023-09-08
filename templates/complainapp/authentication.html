@@ -1,0 +1,27 @@
+{% extends 'complainapp/basic.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/complainapp/authentication.css' %}">
+{% endblock style %}
+
+{% block body %}
+{% if not user.is_authenticated %}
+<div class="login-signup container">
+    <div class="container login-form">
+        <h1><center>Login</center></h1>
+        <form action="{% url 'handleLogin' %}" method="post"> {% csrf_token %}
+            {{ loginform.as_p }}
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+    <div class="container signup-form">
+        <h1><center>Signup</center></h1>
+        <form action="{% url 'handleSignup' %}" method="post"> {% csrf_token %}
+            {{ signupform.as_p }}   
+            <button type="submit" class="btn btn-primary">Signup</button>
+        </form>
+    </div>
+</div>
+
+{% endif %}
+{% endblock body %}

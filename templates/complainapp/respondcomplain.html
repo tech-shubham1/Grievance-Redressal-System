@@ -1,0 +1,46 @@
+{% extends 'complainapp/basic.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/complainapp/respondcomplain.css' %}">
+{% endblock style %}
+{% block title %}
+<title>Resolve Complain</title>
+{% endblock title %}
+{% block body %}
+{% if user.is_authenticated %}
+<div class="content-enclosure">
+    <h2 class="text-center">Resolve Complain</h2>
+    {% comment %} complain-list will be in dictionary with key = designation and value = complains {% endcomment %}
+    {% for designation, complains in complains_list.items %}
+    <div class="designation-wrap-complains">
+        <div class="complains1" style="min-height:200px">
+            <h2 class="bg-success text-white rounded-top" style="text-align:center; margin:0;padding:5px;">Resolve
+                Complains as {{designation.name}}</h2>
+            <div class="list-group complain-list" style="border-radius:0px 0px 5px 5px">
+                {% for complain in complains %}
+                <div class="list-group-item list-group-item-action complain-class" aria-current="true">
+                    <h6 class="complain-subject">{{ complain.heading }}</h6>
+                    <div class="complain-desc">
+                        <p class="fst-italic">Deadline for response: {{ complain.response_date }}</p>
+                        <p>{{ complain.description|safe }}</p>
+                        <form action="{% url 'respondComplain' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="complain_id" value="{{ complain.id }}">
+                            <textarea name="response" placeholder="" class="form-control tinymce" id="response_field" style="height:100px"></textarea>
+                            <button type="submit" class="btn btn-primary my-2">Respond</button>
+                        </form>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No complains to be registered yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endif %}
+{% endblock body %}
